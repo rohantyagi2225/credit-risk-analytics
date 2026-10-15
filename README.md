@@ -73,6 +73,17 @@ python src/train_model.py
 
 Open `notebooks/credit_risk_analysis.ipynb` in Jupyter to run the EDA and chart generation workflow. The notebook writes generated figures to `visualizations/`.
 
+## Visualizations
+
+The repository includes static SVG charts generated from the bundled synthetic dataset:
+
+- [Synthetic target distribution](visualizations/target_distribution.svg)
+- [Annual income distribution](visualizations/annual_income_distribution.svg)
+- [Credit-score-like value distribution](visualizations/credit_score_distribution.svg)
+- [Visualization notes and descriptive summaries](visualizations/README.md)
+
+All plots are explicitly labeled as synthetic-data demonstrations.
+
 ## Dataset
 
 The file `data/credit_risk_synthetic.csv` contains 1,200 generated records. Its columns are:
