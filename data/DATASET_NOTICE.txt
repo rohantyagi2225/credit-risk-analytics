@@ -1,5 +1,11 @@
 DATASET NOTICE
-This dataset is synthetic and generated for demonstration/learning only.
-It does not represent real applicants, lenders, or lending outcomes.
-The `default` label is generated from an illustrative formula and must not be
-used for real credit decisions or interpreted as validated predictive evidence.
+
+This project now uses the UCI Machine Learning Repository's "Default of Credit Card Clients" dataset (ID 350), fetched at runtime through the ucimlrepo Python package.
+
+Official source: https://archive.ics.uci.edu/dataset/350/defaultofcreditcardclients
+DOI: https://doi.org/10.24432/C55S3H
+License: CC BY 4.0. Please retain attribution.
+
+The raw dataset is not stored in this repository. Running the notebook or training script requires an internet connection to retrieve it.
+
+The source is historical data from Taiwan (repayment and billing history from 2005). This project is educational only and is not validated for real credit decisions. See docs/dataset_card.md and docs/ethics_and_limitations.md.
