@@ -1,53 +1,57 @@
 # Credit Risk Analytics & Risk Modelling
 
-An educational data analytics and baseline machine-learning project exploring credit-risk patterns using Python. The repository includes a reproducible notebook, a command-line training script, and a synthetic dataset.
+A reproducible portfolio project using a **real, publicly documented historical dataset** from the UCI Machine Learning Repository. The project covers exploratory data analysis, preprocessing, baseline classification, evaluation, and responsible interpretation.
 
 > [!IMPORTANT]
-> **Synthetic-data demonstration only.** The bundled dataset and its target labels are artificially generated. Results demonstrate a coding workflow, not real-world predictive performance. Do not use this project for lending, eligibility, pricing, or other real credit decisions.
+> **Educational research only.** The dataset describes credit-card clients in Taiwan and historical outcomes from 2005. This project is not a validated or fair lending decision system and must not be used to approve or reject applicants, set credit limits, or make consequential financial decisions.
+
+## Dataset
+
+**Default of Credit Card Clients** — UCI Machine Learning Repository, dataset ID 350.
+
+- 30,000 historical records and 23 explanatory variables
+- Credit limit, demographic codes, repayment history, bill statements, payment amounts, and next-month default outcome
+- License: CC BY 4.0 (attribution required)
+- Official source: https://archive.ics.uci.edu/dataset/350/defaultofcreditcardclients
+- DOI: https://doi.org/10.24432/C55S3H
+
+The dataset is downloaded at runtime through `ucimlrepo`; the raw customer-level data is not stored in this GitHub repository. Internet access is required for the first data fetch.
 
 ## Project highlights
 
-- Data quality checks, summary statistics, and exploratory analysis
-- Visualizations of target distribution, feature distributions, and numeric correlations
-- Preprocessing pipelines for numeric and categorical features
-- Baseline Logistic Regression and Random Forest classifiers
-- Classification reports, confusion matrices, ROC-AUC, and ROC curves
-- Saved chart outputs in `visualizations/`
-
-## Technology stack
-
-Python · Pandas · NumPy · Matplotlib · scikit-learn · Jupyter Notebook
+- Data quality checks and exploratory data analysis
+- Target balance, credit-limit and age distributions, repayment status, and correlation analysis
+- Reproducible stratified train/test split
+- Preprocessing inside scikit-learn pipelines
+- Logistic Regression and Random Forest baselines
+- Precision, recall, F1-score, balanced accuracy, ROC-AUC, confusion matrices, and ROC curves
+- Dataset card, data dictionary, methodology, and ethics documentation
 
 ## Repository structure
 
 ```text
 credit-risk-analytics/
-├── data/
-│   ├── credit_risk_synthetic.csv
-│   └── DATASET_NOTICE.txt
+├── data/                       # Source and acquisition notes; raw data is fetched at runtime
+├── docs/
+│   ├── dataset_card.md
+│   ├── data_dictionary.md
+│   ├── methodology.md
+│   └── ethics_and_limitations.md
 ├── notebooks/
 │   └── credit_risk_analysis.ipynb
 ├── src/
 │   └── train_model.py
 ├── reports/
 │   └── PROJECT_NOTES.md
-├── visualizations/
+├── visualizations/              # Generated charts from notebook/script runs
 ├── requirements.txt
 ├── .gitignore
 └── README.md
 ```
 
-## Getting started
+## Quick start
 
-### Option A: Google Colab
-
-1. Open [the project notebook](notebooks/credit_risk_analysis.ipynb).
-2. Download the repository as a ZIP using GitHub's **Code → Download ZIP** option, then upload and extract it in Colab, or clone the repository in a Colab cell.
-3. Run the notebook cells from top to bottom from the repository root.
-
-### Option B: Run locally
-
-Requires Python 3.10 or newer.
+Requires Python 3.10+ and internet access to retrieve the UCI dataset.
 
 ```bash
 git clone https://github.com/rohantyagi2225/credit-risk-analytics.git
@@ -55,7 +59,7 @@ cd credit-risk-analytics
 python -m venv .venv
 ```
 
-Activate the environment, then install dependencies:
+Activate the environment, then install packages:
 
 **Windows PowerShell**
 ```powershell
@@ -71,62 +75,32 @@ pip install -r requirements.txt
 python src/train_model.py
 ```
 
-Open `notebooks/credit_risk_analysis.ipynb` in Jupyter to run the EDA and chart generation workflow. The notebook writes generated figures to `visualizations/`.
+Or open `notebooks/credit_risk_analysis.ipynb` in Jupyter Notebook or Google Colab and run the cells from top to bottom. The notebook saves charts to `visualizations/`.
 
-## Visualizations
+## Documentation
 
-The repository includes static SVG charts generated from the bundled synthetic dataset:
+- [Dataset card and provenance](docs/dataset_card.md)
+- [Data dictionary](docs/data_dictionary.md)
+- [Methodology and evaluation plan](docs/methodology.md)
+- [Ethics and limitations](docs/ethics_and_limitations.md)
 
-- [Synthetic target distribution](visualizations/target_distribution.svg)
-- [Annual income distribution](visualizations/annual_income_distribution.svg)
-- [Credit-score-like value distribution](visualizations/credit_score_distribution.svg)
-- [Visualization notes and descriptive summaries](visualizations/README.md)
+## Modelling notes
 
-All plots are explicitly labeled as synthetic-data demonstrations.
+The project excludes the row ID from predictors and treats coded demographic and repayment-status variables as categorical in the baseline. Imputation, scaling, and one-hot encoding are fitted inside the training pipeline to reduce leakage. A fixed stratified holdout split is used for reproducibility.
 
-## Dataset
+Accuracy is not sufficient on its own. Compare class-specific precision and recall, balanced accuracy, ROC-AUC, and confusion matrices. Metrics must be generated by running the current code; results from different splits or model versions should not be mixed.
 
-The file `data/credit_risk_synthetic.csv` contains 1,200 generated records. Its columns are:
+## Limitations
 
-| Column | Description |
-|---|---|
-| `applicant_id` | Synthetic demonstration ID |
-| `age` | Synthetic age |
-| `annual_income` | Illustrative annual income units |
-| `loan_amount` | Illustrative loan amount units |
-| `credit_score` | Synthetic credit-score-like value |
-| `employment_years` | Synthetic years employed |
-| `debt_to_income` | Illustrative debt-to-income ratio |
-| `loan_purpose` | Generated purpose category |
-| `default` | Artificial binary label (1 = positive demo label) |
+- The data is historical and specific to Taiwan; it should not be assumed to represent current credit applicants or other markets.
+- The dataset includes sensitive/proxy attributes. Model performance does not demonstrate fairness.
+- The observed target is a historical outcome, not a complete definition of creditworthiness.
+- This baseline has not been independently validated, calibrated for operational use, or assessed for regulatory suitability.
+- Do not infer causality from correlations or feature effects.
 
-The label was generated from an illustrative formula with noise; it is not based on actual defaults. See [DATASET_NOTICE.txt](data/DATASET_NOTICE.txt).
+## Dataset attribution
 
-## Modelling approach
-
-1. Separate features from the synthetic target.
-2. Split the data into stratified training and test sets.
-3. Impute missing numeric and categorical values.
-4. Scale numeric features and one-hot encode categorical features.
-5. Fit Logistic Regression and Random Forest baselines.
-6. Report precision, recall, F1-score, confusion matrices, and ROC-AUC.
-
-When interpreting classification results, inspect positive-class recall and precision alongside accuracy. The default decision threshold may not reflect the trade-offs required in a real credit setting.
-
-## Limitations and responsible use
-
-- Synthetic patterns and metrics are not evidence of real-world performance.
-- No fairness, regulatory, stability, or out-of-time validation is claimed.
-- A real-world study would require lawful data access, documented provenance, leakage checks, robust validation, calibration, explainability, fairness assessment, and expert review.
-- Never commit personal, confidential, or identifiable financial records to a public repository.
-
-## Potential next steps
-
-- Replace demo data with an appropriately licensed and documented dataset.
-- Add cross-validation and probability calibration.
-- Compare threshold-dependent precision/recall trade-offs.
-- Evaluate model stability and fairness with appropriate safeguards.
-- Add a dashboard only after the analysis and data are validated.
+Yeh, I. (2009). *Default of Credit Card Clients* [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C55S3H. Licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).
 
 ## Author
 
