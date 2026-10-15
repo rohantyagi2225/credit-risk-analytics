@@ -1,5 +1,0 @@
-DATASET NOTICE
-This dataset is synthetic and generated for demonstration/learning only.
-It does not represent real applicants, lenders, or lending outcomes.
-The `default` label is generated from an illustrative formula and must not be
-used for real credit decisions or interpreted as validated predictive evidence.
