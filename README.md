@@ -1,20 +1,25 @@
 # Credit Risk Analytics & Risk Modelling
 
-A portfolio-ready educational project demonstrating exploratory analysis and a baseline machine-learning workflow for credit-risk data.
+An educational data analytics and baseline machine-learning project exploring credit-risk patterns using Python. The repository includes a reproducible notebook, a command-line training script, and a synthetic dataset.
 
-> **Important:** The included dataset is synthetic demonstration data generated for this repository. It is not real customer or lender data. The target label is artificially generated and model metrics are not evidence of real-world performance. Do not use this project to make lending decisions.
+> [!IMPORTANT]
+> **Synthetic-data demonstration only.** The bundled dataset and its target labels are artificially generated. Results demonstrate a coding workflow, not real-world predictive performance. Do not use this project for lending, eligibility, pricing, or other real credit decisions.
 
-## Project goals
-- Inspect and clean structured credit-risk data.
-- Explore distributions, default rates, and relationships between variables.
-- Build baseline classification models for learning purposes.
-- Evaluate models using precision, recall, F1-score, ROC-AUC, and a confusion matrix.
-- Keep the workflow reproducible and transparent.
+## Project highlights
 
-## Tools
-Python, Pandas, NumPy, Matplotlib, Seaborn, scikit-learn, Jupyter Notebook.
+- Data quality checks, summary statistics, and exploratory analysis
+- Visualizations of target distribution, feature distributions, and numeric correlations
+- Preprocessing pipelines for numeric and categorical features
+- Baseline Logistic Regression and Random Forest classifiers
+- Classification reports, confusion matrices, ROC-AUC, and ROC curves
+- Saved chart outputs in `visualizations/`
+
+## Technology stack
+
+Python · Pandas · NumPy · Matplotlib · scikit-learn · Jupyter Notebook
 
 ## Repository structure
+
 ```text
 credit-risk-analytics/
 ├── data/
@@ -27,57 +32,92 @@ credit-risk-analytics/
 ├── reports/
 │   └── PROJECT_NOTES.md
 ├── visualizations/
-│   └── .gitkeep
 ├── requirements.txt
 ├── .gitignore
 └── README.md
 ```
 
-## Run locally or in Google Colab
-1. Download or clone this repository.
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Open `notebooks/credit_risk_analysis.ipynb` in Jupyter or upload it to Google Colab.
-4. Run cells from top to bottom.
+## Getting started
 
-To run the script:
+### Option A: Google Colab
+
+1. Open [the project notebook](notebooks/credit_risk_analysis.ipynb).
+2. Download the repository as a ZIP using GitHub's **Code → Download ZIP** option, then upload and extract it in Colab, or clone the repository in a Colab cell.
+3. Run the notebook cells from top to bottom from the repository root.
+
+### Option B: Run locally
+
+Requires Python 3.10 or newer.
+
 ```bash
+git clone https://github.com/rohantyagi2225/credit-risk-analytics.git
+cd credit-risk-analytics
+python -m venv .venv
+```
+
+Activate the environment, then install dependencies:
+
+**Windows PowerShell**
+```powershell
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
 python src/train_model.py
 ```
-The script expects the CSV at `data/credit_risk_synthetic.csv` relative to the project root.
 
-## Data dictionary
+**macOS/Linux**
+```bash
+source .venv/bin/activate
+pip install -r requirements.txt
+python src/train_model.py
+```
+
+Open `notebooks/credit_risk_analysis.ipynb` in Jupyter to run the EDA and chart generation workflow. The notebook writes generated figures to `visualizations/`.
+
+## Dataset
+
+The file `data/credit_risk_synthetic.csv` contains 1,200 generated records. Its columns are:
+
 | Column | Description |
 |---|---|
-| `applicant_id` | Synthetic demonstration identifier |
-| `age` | Applicant age in the synthetic data |
-| `annual_income` | Annual income, in illustrative currency units |
-| `loan_amount` | Requested loan amount, in illustrative currency units |
+| `applicant_id` | Synthetic demonstration ID |
+| `age` | Synthetic age |
+| `annual_income` | Illustrative annual income units |
+| `loan_amount` | Illustrative loan amount units |
 | `credit_score` | Synthetic credit-score-like value |
-| `employment_years` | Years employed |
+| `employment_years` | Synthetic years employed |
 | `debt_to_income` | Illustrative debt-to-income ratio |
-| `loan_purpose` | Synthetic loan purpose category |
-| `default` | Artificially generated binary target (1 = demo default label) |
+| `loan_purpose` | Generated purpose category |
+| `default` | Artificial binary label (1 = positive demo label) |
 
-## Methodology
-- Data quality checks and summary statistics
-- Exploratory data analysis (EDA)
-- Stratified train/test split
-- Preprocessing with imputation, scaling, and one-hot encoding
-- Logistic Regression and Random Forest baselines
-- Classification metrics and confusion matrix
+The label was generated from an illustrative formula with noise; it is not based on actual defaults. See [DATASET_NOTICE.txt](data/DATASET_NOTICE.txt).
+
+## Modelling approach
+
+1. Separate features from the synthetic target.
+2. Split the data into stratified training and test sets.
+3. Impute missing numeric and categorical values.
+4. Scale numeric features and one-hot encode categorical features.
+5. Fit Logistic Regression and Random Forest baselines.
+6. Report precision, recall, F1-score, confusion matrices, and ROC-AUC.
+
+When interpreting classification results, inspect positive-class recall and precision alongside accuracy. The default decision threshold may not reflect the trade-offs required in a real credit setting.
 
 ## Limitations and responsible use
-This is a learning template, not a validated credit-risk model. Synthetic data can make the workflow runnable but cannot establish useful real-world performance. Credit models can have serious fairness, privacy, regulatory, and explainability implications. Before any real-world research, use a lawful, documented dataset, assess data quality and bias, validate out of time and across relevant groups, and obtain appropriate expert review. Avoid uploading confidential or personally identifiable financial information to public repositories.
 
-## Next improvements
-- Replace the synthetic CSV with an appropriately licensed, documented dataset.
-- Add feature definitions and data provenance.
-- Add cross-validation and calibration analysis.
-- Add explainability and fairness evaluation where appropriate.
-- Add a dashboard only after the data and analysis are validated.
+- Synthetic patterns and metrics are not evidence of real-world performance.
+- No fairness, regulatory, stability, or out-of-time validation is claimed.
+- A real-world study would require lawful data access, documented provenance, leakage checks, robust validation, calibration, explainability, fairness assessment, and expert review.
+- Never commit personal, confidential, or identifiable financial records to a public repository.
+
+## Potential next steps
+
+- Replace demo data with an appropriately licensed and documented dataset.
+- Add cross-validation and probability calibration.
+- Compare threshold-dependent precision/recall trade-offs.
+- Evaluate model stability and fairness with appropriate safeguards.
+- Add a dashboard only after the analysis and data are validated.
 
 ## Author
-Rohan Tyagi
+
+**Rohan Tyagi**  
+B.Tech, Computer Science and Engineering — Data Science & Machine Learning
